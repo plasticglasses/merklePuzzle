@@ -42,7 +42,6 @@ public class Puzzle{
 			outputStream.write( puzzleNumArray );
 			outputStream.write( sKeyArray );
 	     }catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 	     }
 	     byte puzzle[] = outputStream.toByteArray( );
@@ -82,6 +81,14 @@ public class Puzzle{
 	}
 	
 	
+	
+	
+	@Override
+public String toString() {
+	return "Puzzle [puzzleNum=" + puzzleNum + ", secretKey=" + secretKey + ", puzzle=" + Arrays.toString(puzzle) + "]";
+}
+
+
 	public static void main(String[] args) {
 		
         KeyGenerator keygenerator = null;

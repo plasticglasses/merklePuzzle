@@ -1,5 +1,9 @@
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 public class Merkle {
@@ -8,7 +12,7 @@ public class Merkle {
 	 * A constructor that takes no parameters
 	 */
 	Merkle(){
-		
+	
 	}
 	
 	/**
@@ -16,11 +20,25 @@ public class Merkle {
 	 */
 	public ArrayList<Puzzle> createPuzzles(){
 		
-		ArrayList<Puzzle> merklePuzzles = null;
+		ArrayList<Puzzle> merklePuzzles = new ArrayList<Puzzle>();
 		
-		for (int i = 0; i < 5; i++) {
-			  System.out.println(i);
+		//create 4096 unique puzzles
+		for (int i = 0; i < 4096; i++) {
+			try {
+				Puzzle thisPuzzle = new Puzzle(i, CryptoLib.createKey(createRandomKey()));
+				merklePuzzles.add(thisPuzzle);
+			} catch (InvalidKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidKeySpecException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			 	
+		}
 		
 		return merklePuzzles;
 	}
@@ -31,6 +49,16 @@ public class Merkle {
 	 */
 	public byte[] createRandomKey() {
 		byte[] desKeyArray = null;
+		
+		KeyGenerator keygenerator = null;
+		try {
+			keygenerator = KeyGenerator.getInstance("DES");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        SecretKey desKey = keygenerator.generateKey();
+        desKeyArray=desKey.getEncoded();	
 		
 		return desKeyArray;
 	}
@@ -69,6 +97,12 @@ public class Merkle {
 	
 	public static void main(String[] args) {
 		//TEST 5
+		Merkle myMerklePuzzles = new Merkle();
+		 ArrayList<Puzzle> puzzles = myMerklePuzzles.createPuzzles();
+		 for(Puzzle puzzle: puzzles) {
+			 System.out.println(puzzle.toString());
+		 }
+		 
 	}
 	
 }
