@@ -95,7 +95,7 @@ public class PuzzleCreator {
 	
 	public static void main(String[] args) {
 		//TEST 5
-		Merkle myMerklePuzzles = new Merkle();
+		PuzzleCreator myMerklePuzzles = new PuzzleCreator();
 		 ArrayList<Puzzle> puzzles = myMerklePuzzles.createPuzzles();
 		 for(Puzzle puzzle: puzzles) {
 			 System.out.println(puzzle.toString());
