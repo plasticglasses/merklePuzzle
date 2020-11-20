@@ -4,24 +4,28 @@ import javax.crypto.SecretKey;
 
 public class Merkle {
 
-	/*
+	/**
 	 * A constructor that takes no parameters
 	 */
 	Merkle(){
 		
 	}
 	
-	/*
+	/**
 	 * A createPuzzles method that generates and returns an ArrayList of 4096 Puzzle objects.
 	 */
 	public ArrayList<Puzzle> createPuzzles(){
 		
 		ArrayList<Puzzle> merklePuzzles = null;
 		
+		for (int i = 0; i < 5; i++) {
+			  System.out.println(i);
+			}
+		
 		return merklePuzzles;
 	}
 	
-	/*
+	/**
 	 * A createRandomKey method that returns a byte array that can be used to form a DES
 	 * key. This byte array should be in the above specified format (final 48 bits should be zeros).
 	 */
@@ -31,7 +35,7 @@ public class Merkle {
 		return desKeyArray;
 	}
 	
-	/*
+	/**
 	 * An encryptPuzzle method that takes a byte array representing a key and a puzzle object
 	 * and encrypts the puzzles byte representation into a byte array representing the encrypted
 	 * puzzle. The method should return this byte array. Note that if completed correctly the
@@ -44,7 +48,7 @@ public class Merkle {
 		return encryptedPuzzle;
 	}
 	
-	/*
+	/**
 	 * An encryptPuzzlesToFile method that takes as a parameter a String representing a filename (e.g. “puzzles.bin”) and encrypts all 4096 puzzles and also writes them to a binary
 	 * file (the byte data as it is, no spaces or new lines) with given name.
 	 */
@@ -53,7 +57,7 @@ public class Merkle {
 	}
 	
 	
-	/*
+	/**
 	 * A findKey method that take as a parameter an int representing a puzzle number and
 	 * returns the key for that puzzle as a SecretKey object.
 	 */
