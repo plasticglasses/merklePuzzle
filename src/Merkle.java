@@ -6,7 +6,6 @@ public class Merkle {
 
 	/*
 	 * A constructor that takes no parameters
-	 * Makes a new set of puzzles
 	 */
 	Merkle(){
 		
@@ -63,4 +62,9 @@ public class Merkle {
 		SecretKey key = null;
 		return key;
 	}
+	
+	public static void main(String[] args) {
+		//TEST 5
+	}
+	
 }

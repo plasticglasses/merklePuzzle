@@ -16,79 +16,32 @@ public class Puzzle{
  * A constructor that takes a puzzle number as an int and a secret key as a SecretKey object and then constructs a Puzzle object.
  */
 	public Puzzle(int puzzleNum, SecretKey sKey){
-		this.puzzleNum = puzzleNum; 
-		this.sKey = sKey;
 		
-		
-//		System.out.println(sKey);
 		byte[] plaintextArray = new byte[16];
 		byte[] puzzleNumArray = null;
 		byte[] sKeyArray = new byte[8];
 		
 		Arrays.fill(plaintextArray, (byte) 0);
-		
 		puzzleNumArray = ByteBuffer.allocate(2).putShort((short)puzzleNum).array(); 
-	    
-		
-//		System.out.println("Plaintext array should be 0");
-//	
-//	      for (byte value : puzzleNumArray) {
-//	         System.out.print(value);
-//	      }
-//	   
-//	      System.out.println("puzzle numbet array should be");
-//	      for (byte value : puzzleNumArray) {
-//		         System.out.print(value);
-//		      }
-	      
-	     
-	     
-		sKeyArray=sKey.getEncoded();
-//		for (byte value : sKeyArray) {
-//	         System.out.print(" v " + value);
-//	      }
-//		System.out.println(plaintextArray.length);
-//		System.out.println(puzzleNumArray.length);
-		//System.out.println("key length " + sKeyArray.length);
-	      
+	    sKeyArray=sKey.getEncoded();
 
-	      ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-	      try {
-			outputStream.write( plaintextArray );
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	      try {
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+	    try {
+	    	outputStream.write( plaintextArray );
 			outputStream.write( puzzleNumArray );
-		} catch (IOException e) {
+			outputStream.write( sKeyArray );
+	     }catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	      try {
-				outputStream.write( sKeyArray );
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	     }
 	      
-
-	      byte puzzle[] = outputStream.toByteArray( );
-	      
-		this.puzzle = puzzle;
+	     byte puzzle[] = outputStream.toByteArray( );
+	     
+	     this.puzzleNum = puzzleNum; 
+		 this.sKey = sKey;
+	     this.puzzle = puzzle;
 	}
-	
-	
-	private static byte[] intToBytes(int n) 
-    {
-            byte[] bytes = new byte[4];
-            for(int i = 0; i < 4; i++)
-            {
-                    bytes[i] = (byte) (n | 0);
-                    n >>= 8;
-            }
-            return bytes;
-    }
+
 	
 	
 /*
@@ -117,11 +70,9 @@ public class Puzzle{
 		return this.puzzle;
 		
 	}
-//	
+	
 	public static void main(String[] args) {
 		
-		
-//
         KeyGenerator keygenerator = null;
 		try {
 			keygenerator = KeyGenerator.getInstance("DES");
@@ -130,19 +81,37 @@ public class Puzzle{
 			e.printStackTrace();
 		}
         SecretKey desKey = keygenerator.generateKey();
-//		
-//        
+
 //        //TEST 1
 		Puzzle myPuzzle = new Puzzle(4000, desKey);
 		byte[] myPuzzleArray = myPuzzle.getPuzzleAsBytes();
 		System.out.println(myPuzzleArray.length);
-//		
+	
 //		//TEST 2
 		System.out.println("puzzle numbet array should be");
 	      for (byte value : myPuzzleArray) {
 		         System.out.println(value);
 		      }
-//		
+	      
+	      
+
+//			System.out.println(sKey);
+//			System.out.println("Plaintext array should be 0");
+//		      for (byte value : puzzleNumArray) {
+//		         System.out.print(value);
+//		      }
+//		   
+//		      System.out.println("puzzle numbet array should be");
+//		      for (byte value : puzzleNumArray) {
+//			         System.out.print(value);
+//			      }
+//			for (byte value : sKeyArray) {
+//		         System.out.print(" v " + value);
+//		      }
+//			System.out.println(plaintextArray.length);
+//			System.out.println(puzzleNumArray.length);
+			//System.out.println("key length " + sKeyArray.length);
+
 	}
 	
 }
