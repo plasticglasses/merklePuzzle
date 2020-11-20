@@ -43,19 +43,15 @@ public class Puzzle{
 //		         System.out.print(value);
 //		      }
 	      
-	      SecretKey key = null;
-		try {
-			key = KeyGenerator.getInstance("DES").generateKey();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	     
-		sKeyArray=key.getEncoded();
-		
-		System.out.println(plaintextArray.length);
-		System.out.println(puzzleNumArray.length);
-		System.out.println(sKeyArray.length);
+	     
+		sKeyArray=sKey.getEncoded();
+//		for (byte value : sKeyArray) {
+//	         System.out.print(" v " + value);
+//	      }
+//		System.out.println(plaintextArray.length);
+//		System.out.println(puzzleNumArray.length);
+		//System.out.println("key length " + sKeyArray.length);
 	      
 
 	      ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
@@ -123,24 +119,32 @@ public class Puzzle{
 		return this.puzzle;
 		
 	}
-	
-	public static void main(String[] args) {
+//	
+//	public static void main(String[] args) {
 		
 		
-
-        KeyGenerator keygenerator = null;
-		try {
-			keygenerator = KeyGenerator.getInstance("DES");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        SecretKey desKey = keygenerator.generateKey();
-		
-        
-        //TEST 1
-		Puzzle myPuzzle = new Puzzle(12, desKey);
-		System.out.println(myPuzzle.getPuzzleAsBytes().length);
-	}
+//
+//        KeyGenerator keygenerator = null;
+//		try {
+//			keygenerator = KeyGenerator.getInstance("DES");
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        SecretKey desKey = keygenerator.generateKey();
+//		
+//        
+//        //TEST 1
+//		Puzzle myPuzzle = new Puzzle(12, desKey);
+//		byte[] myPuzzleArray = myPuzzle.getPuzzleAsBytes();
+//		System.out.println(myPuzzleArray.length);
+//		
+//		//TEST 2
+//		System.out.println("puzzle numbet array should be");
+//	      for (byte value : myPuzzleArray) {
+//		         System.out.print(value);
+//		      }
+//		
+//	}
 	
 }
