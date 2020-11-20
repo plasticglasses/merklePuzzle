@@ -2,6 +2,7 @@ package merklePuzzle;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
@@ -16,30 +17,31 @@ public class Puzzle{
 /*
  * A constructor that takes a puzzle number as an int and a secret key as a SecretKey object and then constructs a Puzzle object.
  */
-
-	public Puzzle(Integer puzzleNum, SecretKey sKey){
+	public Puzzle(int puzzleNum, SecretKey sKey){
 		this.puzzleNum = puzzleNum; 
 		this.sKey = sKey;
 		
 		
-		System.out.println(sKey);
+//		System.out.println(sKey);
 		byte[] plaintextArray = new byte[16];
-		byte[] puzzleNumArray = new byte[2];
+		byte[] puzzleNumArray = null;
 		byte[] sKeyArray = new byte[8];
 		
 		Arrays.fill(plaintextArray, (byte) 0);
-		puzzleNumArray = intToBytes(puzzleNum);
 		
-		System.out.println("Plaintext array should be 0");
-	
-	      for (byte value : plaintextArray) {
-	         System.out.print(value);
-	      }
-	   
-	      System.out.println("puzzle numbet array should be");
-	      for (byte value : puzzleNumArray) {
-		         System.out.print(value);
-		      }
+		puzzleNumArray = ByteBuffer.allocate(2).putShort((short)puzzleNum).array(); 
+	    
+		
+//		System.out.println("Plaintext array should be 0");
+//	
+//	      for (byte value : puzzleNumArray) {
+//	         System.out.print(value);
+//	      }
+//	   
+//	      System.out.println("puzzle numbet array should be");
+//	      for (byte value : puzzleNumArray) {
+//		         System.out.print(value);
+//		      }
 	      
 	      SecretKey key = null;
 		try {
@@ -50,6 +52,10 @@ public class Puzzle{
 		}
 	     
 		sKeyArray=key.getEncoded();
+		
+		System.out.println(plaintextArray.length);
+		System.out.println(puzzleNumArray.length);
+		System.out.println(sKeyArray.length);
 	      
 
 	      ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
@@ -119,7 +125,8 @@ public class Puzzle{
 	}
 	
 	public static void main(String[] args) {
-		byte[] message = "Hello World".getBytes();
+		
+		
 
         KeyGenerator keygenerator = null;
 		try {
@@ -130,7 +137,10 @@ public class Puzzle{
 		}
         SecretKey desKey = keygenerator.generateKey();
 		
+        
+        //TEST 1
 		Puzzle myPuzzle = new Puzzle(12, desKey);
+		System.out.println(myPuzzle.getPuzzleAsBytes().length);
 	}
 	
 }
