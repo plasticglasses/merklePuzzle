@@ -1,5 +1,3 @@
-package merklePuzzle;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -120,31 +118,31 @@ public class Puzzle{
 		
 	}
 //	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 		
 		
 //
-//        KeyGenerator keygenerator = null;
-//		try {
-//			keygenerator = KeyGenerator.getInstance("DES");
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        SecretKey desKey = keygenerator.generateKey();
+        KeyGenerator keygenerator = null;
+		try {
+			keygenerator = KeyGenerator.getInstance("DES");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        SecretKey desKey = keygenerator.generateKey();
 //		
 //        
 //        //TEST 1
-//		Puzzle myPuzzle = new Puzzle(12, desKey);
-//		byte[] myPuzzleArray = myPuzzle.getPuzzleAsBytes();
-//		System.out.println(myPuzzleArray.length);
+		Puzzle myPuzzle = new Puzzle(4000, desKey);
+		byte[] myPuzzleArray = myPuzzle.getPuzzleAsBytes();
+		System.out.println(myPuzzleArray.length);
 //		
 //		//TEST 2
-//		System.out.println("puzzle numbet array should be");
-//	      for (byte value : myPuzzleArray) {
-//		         System.out.print(value);
-//		      }
+		System.out.println("puzzle numbet array should be");
+	      for (byte value : myPuzzleArray) {
+		         System.out.println(value);
+		      }
 //		
-//	}
+	}
 	
 }
