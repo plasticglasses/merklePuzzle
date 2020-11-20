@@ -7,24 +7,35 @@ import java.util.Arrays;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+/**
+ * represents a Puzzle
+ * @author liz
+ */
+
 public class Puzzle{
+	
 	int puzzleNum;
-	SecretKey sKey;
+	SecretKey secretKey;
 	byte[] puzzle;
 	
-/*
+/**
  * A constructor that takes a puzzle number as an int and a secret key as a SecretKey object and then constructs a Puzzle object.
+ * @param puzzleNum - the id of the puzzle
+ * @param sKey - the secret key of the puzzle
  */
 	public Puzzle(int puzzleNum, SecretKey sKey){
 		
+		//create the 3 parts of the puzzle
 		byte[] plaintextArray = new byte[16];
 		byte[] puzzleNumArray = null;
 		byte[] sKeyArray = new byte[8];
 		
-		Arrays.fill(plaintextArray, (byte) 0);
-		puzzleNumArray = ByteBuffer.allocate(2).putShort((short)puzzleNum).array(); 
-	    sKeyArray=sKey.getEncoded();
+		
+		Arrays.fill(plaintextArray, (byte) 0);										//populate byte array for plaintext with 0's
+		puzzleNumArray = ByteBuffer.allocate(2).putShort((short)puzzleNum).array(); //populate byte array for puzzlenumber from the input integer
+	    sKeyArray=sKey.getEncoded();												//populate byte array for secret key with secret key input
 
+	    //join the three separate byte arrays into a single puzzle array
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
 	    try {
 	    	outputStream.write( plaintextArray );
@@ -34,17 +45,16 @@ public class Puzzle{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 	     }
-	      
 	     byte puzzle[] = outputStream.toByteArray( );
 	     
+	     //assign the puzzle variables
 	     this.puzzleNum = puzzleNum; 
-		 this.sKey = sKey;
+		 this.secretKey = sKey;
 	     this.puzzle = puzzle;
 	}
-
 	
 	
-/*
+/**
  * A method getPuzzleNumber that returns the puzzles number as an int.
  */
 	public int getPuzzeNumber(){
@@ -52,15 +62,15 @@ public class Puzzle{
 	}
 	
 	
-/*
+/**
  * A method getKey that returns the puzzles key as a SecretKey.
  */
 	public SecretKey getKey(){
-		return this.sKey;
+		return this.secretKey;
 	}
 	
 
-/*
+/**
  *  A method getPuzzleAsBytes that returns a byte array representing the puzzle.
  *  Each puzzle is a cryptogram whose plaintext starts out with 128 zero bits (16-bytes), 
  *  followed by a 16-bit (2-byte) puzzle number in the range 1 to 4096, 
@@ -70,6 +80,7 @@ public class Puzzle{
 		return this.puzzle;
 		
 	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -93,8 +104,7 @@ public class Puzzle{
 		         System.out.println(value);
 		      }
 	      
-	      
-
+	     
 //			System.out.println(sKey);
 //			System.out.println("Plaintext array should be 0");
 //		      for (byte value : puzzleNumArray) {
