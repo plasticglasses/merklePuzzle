@@ -56,7 +56,7 @@ public class Puzzle{
 /**
  * A method getPuzzleNumber that returns the puzzles number as an int.
  */
-	public int getPuzzeNumber(){
+	public int getPuzzleNumber(){
 		return this.puzzleNum;
 	}
 	

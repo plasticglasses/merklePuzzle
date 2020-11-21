@@ -96,10 +96,12 @@ public class PuzzleCreator {
 	
 	public static void main(String[] args) {
 		//TEST 5
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		System.out.println(myPuzzle.createPuzzles().size());
+		 
+		//TEST 9
 		PuzzleCreator myPuzzle = new PuzzleCreator();
-		System.out.println(myPuzzle.createPuzzles().size());
-		 
-		 
+		System.out.println(myPuzzle.createRandomKey().length);
 	}
 	
 	
