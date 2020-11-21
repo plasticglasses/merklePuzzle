@@ -84,9 +84,11 @@ public class PuzzleCreator {
 	 */
 	public byte[] encryptPuzzle(byte[] keyArray, Puzzle thisPuzzle) {
 		
+		//use generated key to encrypt puzzle
 		SecretKey desKey = new SecretKeySpec(keyArray, 0, keyArray.length, "DES");
 		
 		try {
+			//encrypt using DES algorithm
 			ecipher = Cipher.getInstance("DES");
 			ecipher.init(Cipher.ENCRYPT_MODE, desKey);
 		} catch (NoSuchAlgorithmException e) {
@@ -102,7 +104,9 @@ public class PuzzleCreator {
 		
 		byte[] puzzleBytes = (thisPuzzle.getPuzzleAsBytes());
 		byte[] encryptedPuzzle = null;
+		
 		try {
+			//use random key to DES encrypt the puzzle 
 			encryptedPuzzle = ecipher.doFinal(puzzleBytes);
 		} catch (IllegalBlockSizeException e) {
 			// TODO Auto-generated catch block
@@ -152,14 +156,14 @@ public class PuzzleCreator {
 //	         System.out.print(" v " + value);
 //	      }
 		
-		//TEST 12
-		PuzzleCreator myPuzzle = new PuzzleCreator();
-		
-		ArrayList<Puzzle> myPuzzles = myPuzzle.createPuzzles();
-		for (Puzzle puzzle : myPuzzles) {
-			byte[] sKeyArray = myPuzzle.createRandomKey();
-			System.out.println(myPuzzle.encryptPuzzle(sKeyArray, puzzle).length);
-		}
+//		//TEST 12
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		
+//		ArrayList<Puzzle> myPuzzles = myPuzzle.createPuzzles();
+//		for (Puzzle puzzle : myPuzzles) {
+//			byte[] sKeyArray = myPuzzle.createRandomKey();
+//			System.out.println(myPuzzle.encryptPuzzle(sKeyArray, puzzle).length);
+//		}
 	}
 	
 	
