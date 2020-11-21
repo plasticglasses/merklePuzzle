@@ -58,6 +58,15 @@ public class PuzzleCreator {
         SecretKey desKey = keygenerator.generateKey();
         desKeyArray=desKey.getEncoded();	
 		
+        for(int i=0;i<desKeyArray.length;i++)
+        {
+          if (i > 1){
+        	  desKeyArray[i] = 0;
+          }
+        }
+        
+       
+        
 		return desKeyArray;
 	}
 	
@@ -100,8 +109,15 @@ public class PuzzleCreator {
 //		System.out.println(myPuzzle.createPuzzles().size());
 		 
 		//TEST 9
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		System.out.println(myPuzzle.createRandomKey().length);
+		
+		//TEST 10
 		PuzzleCreator myPuzzle = new PuzzleCreator();
-		System.out.println(myPuzzle.createRandomKey().length);
+		byte[] sKeyArray = myPuzzle.createRandomKey();
+		for (byte value : sKeyArray) {
+	         System.out.print(" v " + value);
+	      }
 	}
 	
 	
