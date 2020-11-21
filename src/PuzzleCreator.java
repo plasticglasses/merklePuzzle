@@ -1,13 +1,21 @@
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class PuzzleCreator {
-	
+	private static Cipher ecipher;
 	public PuzzleCreator(){
 		
 	}
@@ -65,8 +73,6 @@ public class PuzzleCreator {
           }
         }
         
-       
-        
 		return desKeyArray;
 	}
 	
@@ -78,7 +84,34 @@ public class PuzzleCreator {
 	 */
 	public byte[] encryptPuzzle(byte[] keyArray, Puzzle thisPuzzle) {
 		
+		SecretKey desKey = new SecretKeySpec(keyArray, 0, keyArray.length, "DES");
+		
+		try {
+			ecipher = Cipher.getInstance("DES");
+			ecipher.init(Cipher.ENCRYPT_MODE, desKey);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		byte[] puzzleBytes = (thisPuzzle.getPuzzleAsBytes());
 		byte[] encryptedPuzzle = null;
+		try {
+			encryptedPuzzle = ecipher.doFinal(puzzleBytes);
+		} catch (IllegalBlockSizeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 		return encryptedPuzzle;
 	}
@@ -113,11 +146,20 @@ public class PuzzleCreator {
 //		System.out.println(myPuzzle.createRandomKey().length);
 		
 		//TEST 10
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		byte[] sKeyArray = myPuzzle.createRandomKey();
+//		for (byte value : sKeyArray) {
+//	         System.out.print(" v " + value);
+//	      }
+		
+		//TEST 12
 		PuzzleCreator myPuzzle = new PuzzleCreator();
-		byte[] sKeyArray = myPuzzle.createRandomKey();
-		for (byte value : sKeyArray) {
-	         System.out.print(" v " + value);
-	      }
+		
+		ArrayList<Puzzle> myPuzzles = myPuzzle.createPuzzles();
+		for (Puzzle puzzle : myPuzzles) {
+			byte[] sKeyArray = myPuzzle.createRandomKey();
+			System.out.println(myPuzzle.encryptPuzzle(sKeyArray, puzzle).length);
+		}
 	}
 	
 	
