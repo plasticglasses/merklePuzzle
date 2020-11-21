@@ -75,7 +75,7 @@ public class PuzzleCreator {
 	}
 	
 	/**
-	 * An encryptPuzzlesToFile method that takes as a parameter a String representing a filename (e.g. “puzzles.bin”) and encrypts all 4096 puzzles and also writes them to a binary
+	 * An encryptPuzzlesToFile method that takes as a parameter a String representing a filename (e.g. 'puzzles.bin') and encrypts all 4096 puzzles and also writes them to a binary
 	 * file (the byte data as it is, no spaces or new lines) with given name.
 	 */
 	public void encryptPuzzlesToFile(String filename) {
@@ -93,14 +93,14 @@ public class PuzzleCreator {
 		return key;
 	}
 	
+	
 	public static void main(String[] args) {
 		//TEST 5
-		PuzzleCreator myMerklePuzzles = new PuzzleCreator();
-		 ArrayList<Puzzle> puzzles = myMerklePuzzles.createPuzzles();
-		 for(Puzzle puzzle: puzzles) {
-			 System.out.println(puzzle.toString());
-		 }
+		PuzzleCreator myPuzzle = new PuzzleCreator();
+		System.out.println(myPuzzle.createPuzzles().size());
+		 
 		 
 	}
+	
 	
 }
