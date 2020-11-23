@@ -163,7 +163,7 @@ public class PuzzleCreator {
 				byte[] sKeyArray = createRandomKey();
 				byte[] encryptedPuzzle = encryptPuzzle(sKeyArray, puzzle);
 				
-				  FileOutputStream fos1 = new FileOutputStream("myFile" + puzzle.getPuzzleNumber());
+//				  FileOutputStream fos1 = new FileOutputStream("myFile" + puzzle.getPuzzleNumber());
 				  
 
 				  /*
@@ -172,8 +172,8 @@ public class PuzzleCreator {
 				   *
 				   * This method writes given byte array to a file.
 				   */
-				for (byte b :encryptedPuzzle){
-				   fos1.write(b);}
+//				for (byte b :encryptedPuzzle){
+//				   fos1.write(b);}
 
 				  /*
 				   * Close FileOutputStream using,
@@ -181,7 +181,7 @@ public class PuzzleCreator {
 				   *
 				   */
 
-				   fos1.close();
+//				   fos1.close();
 				
 				for (byte b:encryptedPuzzle){
 //					System.out.println(b);
@@ -279,6 +279,10 @@ public class PuzzleCreator {
 //		} catch (IOException ex) {
 //		    ex.printStackTrace();
 //		}
+		//read single puzzle into
+		
+		
+		
 		
 		//TEST 18
 		PuzzleCreator myPuzzle = new PuzzleCreator();
