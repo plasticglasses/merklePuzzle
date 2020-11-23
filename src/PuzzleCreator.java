@@ -1,5 +1,14 @@
-import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -10,12 +19,14 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class PuzzleCreator {
 	private static Cipher ecipher;
+	
+	static ArrayList<Puzzle> puzzleList;
+	
 	public PuzzleCreator(){
 		
 	}
@@ -126,6 +137,67 @@ public class PuzzleCreator {
 	 */
 	public void encryptPuzzlesToFile(String filename) {
 		
+		
+		
+//		try {
+			
+		    File myFile = new File(filename);
+		
+			FileOutputStream fos = null;
+
+			
+			try {
+				fos = new FileOutputStream(myFile, true);
+			
+
+				          /* This logic will check whether the file
+					   * exists or not. If the file is not found
+					   * at the specified location it would create
+					   * a new file*/
+			if (!myFile.exists()) {
+					myFile.createNewFile();
+			}
+			
+				//for each puzzle encrypt and save
+			for (Puzzle puzzle : puzzleList) {
+				byte[] sKeyArray = createRandomKey();
+				byte[] encryptedPuzzle = encryptPuzzle(sKeyArray, puzzle);
+				
+				  FileOutputStream fos1 = new FileOutputStream("myFile" + puzzle.getPuzzleNumber());
+				  
+
+				  /*
+				   * To write byte array to a file, use
+				   * void write(byte[] bArray) method of Java FileOutputStream class.
+				   *
+				   * This method writes given byte array to a file.
+				   */
+				for (byte b :encryptedPuzzle){
+				   fos1.write(b);}
+
+				  /*
+				   * Close FileOutputStream using,
+				   * void close() method of Java FileOutputStream class.
+				   *
+				   */
+
+				   fos1.close();
+				
+				for (byte b:encryptedPuzzle){
+//					System.out.println(b);
+					fos.write(b);
+				}
+			}
+					 } catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+ catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        
 	}
 	
 	
@@ -134,9 +206,8 @@ public class PuzzleCreator {
 	 * returns the key for that puzzle as a SecretKey object.
 	 */
 	public SecretKey findKey(int puzzleNumber) {
-		
-		SecretKey key = null;
-		return key;
+		Puzzle thisPuzzle = puzzleList.get(puzzleNumber);
+		return thisPuzzle.getKey();
 	}
 	
 	
@@ -164,7 +235,58 @@ public class PuzzleCreator {
 //			byte[] sKeyArray = myPuzzle.createRandomKey();
 //			System.out.println(myPuzzle.encryptPuzzle(sKeyArray, puzzle).length);
 //		}
+		//test 15
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		puzzleList = myPuzzle.createPuzzles();
+//		System.out.println(myPuzzle.findKey(10));
+//		myPuzzle.encryptPuzzlesToFile("puzzles.bin");
+//		
+//		
+//		byte[] buffer = new byte[32];
+//		System.out.println(buffer.length);
+//		InputStream is;
+//		try {
+//			is = new FileInputStream(new File("puzzles.bin"));
+//			if (is.read(buffer) != 32) { 
+//				System.out.println(is.read(buffer));
+//			    // do something 
+//			}
+//			is.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		// at this point, the buffer contains the 4 bytes...
+		
+		
+//		try {
+//		    // create a reader
+//		    FileInputStream fis = new FileInputStream(new File("puzzles.bin"));
+//
+//		    // read one byte at a time
+//		    int ch;
+//		    while ((ch = fis.read()) != -1) {
+//		        System.out.print((char) ch);
+//		    }
+//
+//		    // close the reader
+//		    fis.close();
+//
+//		} catch (IOException ex) {
+//		    ex.printStackTrace();
+//		}
+		
+		//TEST 18
+		PuzzleCreator myPuzzle = new PuzzleCreator();
+		puzzleList = myPuzzle.createPuzzles();
+//		System.out.println(myPuzzle.findKey(10));
+//		myPuzzle.encryptPuzzlesToFile("puzzles.bin");
 	}
+	}
+
 	
-	
-}
+//}
