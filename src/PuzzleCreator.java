@@ -236,10 +236,10 @@ public class PuzzleCreator {
 //			System.out.println(myPuzzle.encryptPuzzle(sKeyArray, puzzle).length);
 //		}
 		//test 15
-//		PuzzleCreator myPuzzle = new PuzzleCreator();
-//		puzzleList = myPuzzle.createPuzzles();
-//		System.out.println(myPuzzle.findKey(10));
-//		myPuzzle.encryptPuzzlesToFile("puzzles.bin");
+		PuzzleCreator myPuzzle = new PuzzleCreator();
+		puzzleList = myPuzzle.createPuzzles();
+		System.out.println(myPuzzle.findKey(10));
+		myPuzzle.encryptPuzzlesToFile("puzzles.bin");
 //		
 //		
 //		byte[] buffer = new byte[32];
@@ -284,11 +284,11 @@ public class PuzzleCreator {
 		
 		
 		
-		//TEST 18
-		PuzzleCreator myPuzzle = new PuzzleCreator();
-		puzzleList = myPuzzle.createPuzzles();
-//		System.out.println(myPuzzle.findKey(10));
-//		myPuzzle.encryptPuzzlesToFile("puzzles.bin");
+//		//TEST 18
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		puzzleList = myPuzzle.createPuzzles();
+////		System.out.println(myPuzzle.findKey(10));
+////		myPuzzle.encryptPuzzlesToFile("puzzles.bin");
 	}
 	}
 
