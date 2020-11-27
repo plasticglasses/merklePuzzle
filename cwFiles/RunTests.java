@@ -1,5 +1,5 @@
 public class RunTests {
-	public static void main(String[] args_) throws Exception {
+public static void main(String[] args) {
 		Tests.test1();
 		Tests.test2();
 		Tests.test3();

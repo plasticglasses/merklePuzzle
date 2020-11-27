@@ -1,6 +1,7 @@
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
@@ -14,35 +15,29 @@ public class Merkle {
 	public static void main(String args[]) {
 		PuzzleCreator alicesPuzzles = new PuzzleCreator();
 		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles();
-		alicesPuzzles.encryptPuzzlesToFile("puzzles.bin");
+		alicesPuzzles.encryptPuzzlesToFile("izzytest.bin");
 
-		PuzzleCracker bob = new PuzzleCracker("puzzles.bin");
-		Puzzle bobsPuzzle = bob.crack(34);
+		PuzzleCracker bob = new PuzzleCracker("izzytest.bin");
+		
+		Puzzle bobsPuzzle = bob.crack(4);
 
-		SecretKey aKey = alicesPuzzles.findKey(34);
-
+//		System.out.println(alicesPuzzles.puzzleList.get(45));
+		System.out.println(bobsPuzzle);
+		System.out.println(bobsPuzzle.getPuzzleNumber());
+		SecretKey secretKey = alicesPuzzles.findKey(bobsPuzzle.getPuzzleNumber());
+		
 		try {
 
-			Cipher ecipher = Cipher.getInstance("DES");
-			Cipher dcipher = Cipher.getInstance("DES");
-
-			// initialize the ciphers with the given key
-
-			ecipher.init(Cipher.ENCRYPT_MODE, aKey);
-
-			dcipher.init(Cipher.DECRYPT_MODE, aKey);
-
-			String message = "Testing Merkle Puzzles";
-
+			//encrypt a message with the secret key discussed
+			Cipher encryptionCipher = Cipher.getInstance("DES");
+			encryptionCipher.init(Cipher.ENCRYPT_MODE, secretKey);
+			String message = "Jaffa Cakes Rule";
 			byte[] messageBytes = message.getBytes("UTF8");
-
-			byte[] enc = ecipher.doFinal(messageBytes);
-
-// encode to base64
-
+			byte[] enc = encryptionCipher.doFinal(messageBytes);
 			String encString = new String(Base64.getEncoder().encodeToString(enc));
-
 			System.out.println("Encryped message " + encString);
+			
+			//Bob decrypt the secret key
 			bob.decryptMessage(enc);
 
 		} catch (NoSuchAlgorithmException e) {
