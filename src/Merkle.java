@@ -16,12 +16,20 @@ public class Merkle {
 	public static void main(String args[]) {
 		
 		PuzzleCreator alicesPuzzles = new PuzzleCreator();
-		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles();
-		alicesPuzzles.encryptPuzzlesToFile("izzytest3.bin");
-
-		PuzzleCracker bob = new PuzzleCracker("izzytest3.bin");
 		
-		Puzzle bobsPuzzle = bob.crack(1);
+		try {
+			File f = new File("izzytest6.bin"); // file to be delete
+			f.delete(); // returns Boolean value
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles();
+		alicesPuzzles.encryptPuzzlesToFile("izzytest6.bin");
+
+		PuzzleCracker bob = new PuzzleCracker("izzytest6.bin");
+		
+		Puzzle bobsPuzzle = bob.crack(4095);
 
 //		System.out.println(alicesPuzzles.puzzleList.get(45));
 		System.out.println(bobsPuzzle);

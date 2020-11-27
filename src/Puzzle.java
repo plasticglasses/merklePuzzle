@@ -81,8 +81,6 @@ public class Puzzle{
 	}
 	
 	
-	
-	
 	@Override
 public String toString() {
 	return "Puzzle [puzzleNum=" + puzzleNum + ", secretKey=" + secretKey + ", puzzle=" + Arrays.toString(puzzle) + "]";
