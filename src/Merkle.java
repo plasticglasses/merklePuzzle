@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -13,13 +14,14 @@ import javax.crypto.SecretKey;
 public class Merkle {
 
 	public static void main(String args[]) {
+		
 		PuzzleCreator alicesPuzzles = new PuzzleCreator();
 		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles();
-		alicesPuzzles.encryptPuzzlesToFile("izzytest.bin");
+		alicesPuzzles.encryptPuzzlesToFile("izzytest3.bin");
 
-		PuzzleCracker bob = new PuzzleCracker("izzytest.bin");
+		PuzzleCracker bob = new PuzzleCracker("izzytest3.bin");
 		
-		Puzzle bobsPuzzle = bob.crack(4);
+		Puzzle bobsPuzzle = bob.crack(1);
 
 //		System.out.println(alicesPuzzles.puzzleList.get(45));
 		System.out.println(bobsPuzzle);
