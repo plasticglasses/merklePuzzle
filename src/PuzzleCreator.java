@@ -31,16 +31,34 @@ public class PuzzleCreator {
 	/**
 	 * the arrayList holding 4096 puzzles
 	 */
-	static ArrayList<Puzzle> puzzleList;
+	private ArrayList<Puzzle> puzzleList;
 
 	
 	/**
-	 * An empty constructor 
+	 * Create an empty arraList
 	 */
 	public PuzzleCreator() {
-
+		this.puzzleList = createPuzzles();
 	}
 
+
+	/**
+	 * get the puzzleList
+	 * @return puzzleList a list of 4096 puzzles
+	 */
+	public ArrayList<Puzzle> getPuzzleList() {
+		return puzzleList;
+	}
+
+
+	/**
+	 * Set the puzzle list for this set of puzzles
+	 * @param puzzleList return an ArrayList of puzzles
+	 */
+	public void setPuzzleList(ArrayList<Puzzle> puzzleList) {
+		this.puzzleList = puzzleList;
+	}
+	
 	
 	/**
 	 * A createPuzzles method that generates and returns an ArrayList of 4096 Puzzle
@@ -172,7 +190,7 @@ public class PuzzleCreator {
 		//for each puzzle, encrypt and save to file
 		for (int i = 0; i < 4096; i++) {
 			
-			Puzzle thisPuzzle = puzzleList.get(i);
+			Puzzle thisPuzzle = getPuzzleList().get(i);
 			byte[] puzzleByteArray = thisPuzzle.getPuzzleAsBytes(); //unencrypted puzzle
 			byte[] sKeyArray = createRandomKey(); //DES encryption key
 			byte[] encryptedPuzzle = encryptPuzzle(sKeyArray, thisPuzzle); // encrypted puzzle
@@ -219,7 +237,7 @@ public class PuzzleCreator {
 		SecretKey key = null;
 		
 		//search through the puzzle list for the correct key to use
-		for (Puzzle puzzle : puzzleList) {
+		for (Puzzle puzzle : getPuzzleList()) {
 			if (puzzle.getPuzzleNumber() == puzzleNumber) {
 				key = puzzle.getKey();
 			}
@@ -229,6 +247,7 @@ public class PuzzleCreator {
 
 	
 	public static void main(String[] args) {
+
 		// TEST 5
 		//		PuzzleCreator myPuzzle = new PuzzleCreator();
 		//		System.out.println(myPuzzle.createPuzzles().size());
@@ -253,8 +272,9 @@ public class PuzzleCreator {
 		//			System.out.println(myPuzzle.encryptPuzzle(sKeyArray, puzzle).length);
 		//		}
 		// test 15
-		PuzzleCreator myPuzzle = new PuzzleCreator();
-		myPuzzle.createPuzzles();
+//		PuzzleCreator myPuzzle = new PuzzleCreator();
+//		myPuzzle.createPuzzles();
+		
 //		puzzleList = myPuzzle.createPuzzles();
 //		myPuzzle.encryptPuzzlesToFile("izzytest2.bin");
 //		System.out.println(myPuzzle.findKey(34));

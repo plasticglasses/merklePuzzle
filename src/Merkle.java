@@ -28,7 +28,7 @@ public class Merkle {
 			e.printStackTrace();
 		}
 		
-		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles(); //make the 4096 puzzles
+		alicesPuzzles.setPuzzleList(alicesPuzzles.createPuzzles()); //make the 4096 puzzles
 		alicesPuzzles.encryptPuzzlesToFile(filename); //encrypt puzzles and add all puzzles to file
 
 		PuzzleCracker bob = new PuzzleCracker(filename); //make a new merklePuzzle player
