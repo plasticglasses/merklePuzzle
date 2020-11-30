@@ -14,8 +14,13 @@ import javax.crypto.SecretKey;
 
 public class Puzzle{
 	
+	/** A puzzle number to keep track of which secret key to use */
 	int puzzleNum;
+	
+	/**	A DES key, used to encrypt messages */
 	SecretKey secretKey;
+	
+	/** A byte array representing a puzzle, which is a puzzleNumber and a secretKey pair*/
 	byte[] puzzle;
 	
 /**
@@ -44,7 +49,8 @@ public class Puzzle{
 	     }catch (IOException e) {
 			e.printStackTrace();
 	     }
-	     byte puzzle[] = outputStream.toByteArray( );
+	    
+	     byte puzzle[] = outputStream.toByteArray( ); //convert to byte array
 	     
 	     //assign the puzzle variables
 	     this.puzzleNum = puzzleNum; 
@@ -55,6 +61,7 @@ public class Puzzle{
 	
 /**
  * A method getPuzzleNumber that returns the puzzles number as an int.
+ * @return this.puzzleNum The puzzles unique puzzleNum
  */
 	public int getPuzzleNumber(){
 		return this.puzzleNum;
@@ -63,6 +70,7 @@ public class Puzzle{
 	
 /**
  * A method getKey that returns the puzzles key as a SecretKey.
+ * @return this.secretKey The puzzles unique secret key
  */
 	public SecretKey getKey(){
 		return this.secretKey;
@@ -74,13 +82,16 @@ public class Puzzle{
  *  Each puzzle is a cryptogram whose plaintext starts out with 128 zero bits (16-bytes), 
  *  followed by a 16-bit (2-byte) puzzle number in the range 1 to 4096, 
  *  and then a 64-bit (8-byte) key.
+ *  @return this.Puzzle returns a 26 byte, byte array representing a puzzle
  */
 	public byte[] getPuzzleAsBytes(){		
 		return this.puzzle;
 		
 	}
 	
-	
+	/**
+	 * To string so that puzzle can be printed in sensible form for debugging
+	 */
 	@Override
 public String toString() {
 	return "Puzzle [puzzleNum=" + puzzleNum + ", secretKey=" + secretKey + ", puzzle=" + Arrays.toString(puzzle) + "]";
