@@ -251,8 +251,6 @@ public class PuzzleCreator {
 		myPuzzle.encryptPuzzlesToFile("izzytest2.bin");
 		System.out.println(myPuzzle.findKey(34));
 		
-		Tests.test16();
-		Tests.test18();
 		// TEST 5
 		//		PuzzleCreator myPuzzle = new PuzzleCreator();
 		//		System.out.println(myPuzzle.createPuzzles().size());
