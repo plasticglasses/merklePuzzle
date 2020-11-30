@@ -82,9 +82,7 @@ public class PuzzleCreator {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-
 		}
-
 		return merklePuzzles;
 	}
 
@@ -218,12 +216,11 @@ public class PuzzleCreator {
 	 */
 	private void deleteExistingFile(String filename) {
 		try {
-			File f = new File("filename"); // file to be deleted
+			File f = new File(filename); // file to be deleted
 			f.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	
@@ -247,7 +244,15 @@ public class PuzzleCreator {
 
 	
 	public static void main(String[] args) {
-
+		// test 15
+		PuzzleCreator myPuzzle = new PuzzleCreator();
+		
+		myPuzzle.setPuzzleList(myPuzzle.createPuzzles());
+		myPuzzle.encryptPuzzlesToFile("izzytest2.bin");
+		System.out.println(myPuzzle.findKey(34));
+		
+		Tests.test16();
+		Tests.test18();
 		// TEST 5
 		//		PuzzleCreator myPuzzle = new PuzzleCreator();
 		//		System.out.println(myPuzzle.createPuzzles().size());
