@@ -15,30 +15,36 @@ public class Merkle {
 
 	public static void main(String args[]) {
 		
+		//create a new set of puzzles
 		PuzzleCreator alicesPuzzles = new PuzzleCreator();
 		
+		String filename = "merklePuzzlesTestOutput.bin";
+		
+		//check that this file doesnt already exist
 		try {
-			File f = new File("izzytest6.bin"); // file to be delete
+			File f = new File(filename); // file to be delete
 			f.delete(); // returns Boolean value
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles();
-		alicesPuzzles.encryptPuzzlesToFile("izzytest6.bin");
+		alicesPuzzles.puzzleList = alicesPuzzles.createPuzzles(); //make the 4096 puzzles
+		alicesPuzzles.encryptPuzzlesToFile(filename); //encrypt puzzles and add all puzzles to file
 
-		PuzzleCracker bob = new PuzzleCracker("izzytest6.bin");
+		PuzzleCracker bob = new PuzzleCracker(filename); //make a new merklePuzzle player
 		
-		Puzzle bobsPuzzle = bob.crack(4095);
+		Puzzle bobsPuzzle = bob.crack(4095); //brute force puzzle 4095 in the list and get a puzzle in return
 
+		//for debugging
 //		System.out.println(alicesPuzzles.puzzleList.get(45));
-		System.out.println(bobsPuzzle);
-		System.out.println(bobsPuzzle.getPuzzleNumber());
-		SecretKey secretKey = alicesPuzzles.findKey(bobsPuzzle.getPuzzleNumber());
+//		System.out.println(bobsPuzzle);
+//		System.out.println(bobsPuzzle.getPuzzleNumber());
 		
+		SecretKey secretKey = alicesPuzzles.findKey(bobsPuzzle.getPuzzleNumber()); //give player Alice the puzzle number so she can find the correct secret key to use to decrypt the message bob sent
+		
+		//encrypt and decrypt messages
 		try {
-
-			//encrypt a message with the secret key discussed
+			//Alice encrypt a message with the secret key discussed
 			Cipher encryptionCipher = Cipher.getInstance("DES");
 			encryptionCipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			String message = "Jaffa Cakes Rule";
@@ -47,7 +53,7 @@ public class Merkle {
 			String encString = new String(Base64.getEncoder().encodeToString(enc));
 			System.out.println("Encryped message " + encString);
 			
-			//Bob decrypt the secret key
+			//Bob decrypt the message Alice sent
 			bob.decryptMessage(enc);
 
 		} catch (NoSuchAlgorithmException e) {
